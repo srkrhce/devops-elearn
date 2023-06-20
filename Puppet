@@ -1,0 +1,7 @@
+Puppet is a open source configuraiton management tool, includes its own declarative language to describe system configuration.
+Puppet uses Ruby as its encoding language.
+Puppet follows a Master Slave architecture.
+Puppet is a PULL configuration type of configuration management tool.
+The most basic component of puppet code is a resource.
+Manifests are basically a collection of resource declarations.
+Major 3 components of manifests are variables, loops & conditions.
