@@ -1,0 +1,72 @@
+import paramiko
+
+def check_lvm_status(remote_host, remote_user, remote_password):
+    # Create an SSH client
+    ssh = paramiko.SSHClient()
+
+    # Automatically add the server's host key (this is insecure and should be improved in production)
+    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+
+    try:
+        # Connect to the remote server:
+        # Use password-based authentication
+        ssh.connect(remote_host, username=remote_user, password=remote_password)
+
+        # Command to get LVM status
+        command = "lvs --noheadings --units b -o lv_name,attr"
+        
+        # Execute the command on the remote server
+        stdin, stdout, stderr = ssh.exec_command(command)
+
+        # Read the output
+        output = stdout.read().decode()
+
+        # Check for 'a-' and 'ao' attributes
+        free_lvs = [line.split()[0] for line in output.splitlines() if line.strip().endswith('-wi-a-----')]
+        used_lvs = [line.split()[0] for line in output.splitlines() if line.strip().endswith('-wi-ao----')]
+
+        # Print the results
+        print("Host IP:", remote_host)
+        print("Free LVMs:", free_lvs)
+        print("Used LVMs:", used_lvs)
+
+        # Command to get HugePages info from /proc/meminfo
+        meminfo_command = "cat /proc/meminfo | grep 'HugePages_Total\|HugePages_Free'"
+        stdin, stdout, stderr = ssh.exec_command(meminfo_command)
+
+        # Read the output and parse HugePages info
+        meminfo_output = stdout.read().decode()
+        print("\nHugePages Info:")
+        print(meminfo_output)
+        print("------------------------")
+
+    except Exception as e:
+        print(f"Error: {e}")
+    finally:
+        # Close the SSH connection
+        ssh.close()
+
+def read_host_details_from_file(file_path):
+    with open(file_path, 'r') as file:
+        lines = file.readlines()
+
+    host_details = []
+    for line in lines:
+        details = line.strip().split(',')
+        host_details.append({
+            "host": details[0],
+            "user": details[1],
+            "password": details[2] if len(details) > 3 else None
+        })
+
+    return host_details
+
+# File path containing host details
+host_details_file = "host_details.txt"
+
+# Read host details from the file
+remote_servers = read_host_details_from_file(host_details_file)
+
+# Iterate through the list of remote servers
+for server in remote_servers:
+    check_lvm_status(server["host"], server["user"], server["password"])
