@@ -1,0 +1,74 @@
+Data structures
+
+1.integer
+2.Floting point
+3.Strings
+4.Lists
+5.Dictonaries
+6.Tuples
+6.Sets
+7.Booleans
+
+Python Numbers
+
+1.Integers - Whole numbers
+2.Floating - Decimal
+
+Mod operators
+
+7 / 4 = 1.75
+7 % 4 = 3
+(2 + 10) * (10 + 3) = 156
+2 + 10 * 10 + 3 = 105
+
+Variable assignments
+
+my_dogs = 2
+Rules : names can't start with number. No spaces. special characters won't work
+use lower case.
+
+Python uses Dynamic Typing : Ex: my_dogs = [ "Sammy" , "Zayn" ]
+
+Strings Syntax 
+
+1. 'Hello'
+2. "Hello"
+3. " Hello "
+
+Slicing - [start:stop:step]
+
+Indexing and Slicing with strings
+
+mystring = "Hello world"
+indexing : mystring[1] --> H
+slicing : mystring[2:] --> lo world, mystring[:4] --> Hell mystring[1:3] --> el mystring[::] --> Hello World
+mystring[::-1] --> dlrow olleh
+
+Print formating with strings
+
+print('This is a string {}'.format('INSERTED'))
+output: This is a string INSERTED
+
+print('The {} {} {}'.format('fox,'brown',quick'))
+output: The fox brown quick
+
+print('The {2} {1} {0})'.format('fox,'brown',quick'))
+output: The quick brown fox
+
+print('The {0} {0} {0})'.format('fox,'brown',quick'))
+output: The fox fox fox
+
+print('The {q} {b} {f}'.format(f='fox',b='brown',q='quick'))
+output: The quick brown fox
+
+Float formating"{value:width.precision f}"
+
+result = 100/777 
+result --> 0.1287001287001287
+print ("The result was {r:1.3f}".format(r="result"))
+the result was 0.129
+
+fstring
+name = "Jose"
+print(f'Hello, his name is {name}')
+output: Hello, his name is Jose
