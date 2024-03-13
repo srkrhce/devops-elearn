@@ -72,3 +72,7 @@ fstring
 name = "Jose"
 print(f'Hello, his name is {name}')
 output: Hello, his name is Jose
+
+Lists - Objects retrieved by location. Ordered sequence can be indexed or sliced.
+
+Dictonaries -{'Key1':'Value','Key2':'Value'} Objects retrieved by Key name. Unordered and can't be sorted
